@@ -45,13 +45,15 @@ class _SportsDemoState extends State<SportsDemo> {
     var screenWidth = MediaQuery.of(context).size.width;
 
     final mydata = FirebaseDatabase.instance.ref("Sports");
+    DatabaseReference reference =
+        FirebaseDatabase.instance.ref().child("Sports");
 
     return Scaffold(
       backgroundColor: Colors.grey,
       appBar: AppBar(
         centerTitle: true,
         elevation: 0.0,
-        title: Text("Sports"),
+        title: Text("Daily 5 Plus"),
       ),
       drawer: Drawer(
         child: Column(
@@ -149,42 +151,38 @@ class _SportsDemoState extends State<SportsDemo> {
                                 flex: 1,
                                 child: GestureDetector(
                                   onTap: () {
-                                    // String myName = "Over 2.5 @1.50";
-                                    // String before = myName.substring(0, myName.indexOf('@'));
-                                    // String after = myName.substring(myName.indexOf('@') + 1, myName.length);
-                                    // print(before);
-                                    // print(after);
+                                    if (bigOneController.text.isNotEmpty) {
+                                      List mylines =
+                                          bigOneController.text.split("\n");
 
-                                    // print(bigtextController.text.substring(0,
-                                    //     bigtextController.text.indexOf("\n")));
-                                    // print(bigtextController.text.substring(
-                                    //     bigtextController.text.indexOf("\n") ,
-                                    //     bigtextController.text.indexOf("\n")));
+                                      finaData_1 = mylines[0];
+                                      finaData_2 = mylines[1];
+                                      finaData_3 = mylines[2].substring(
+                                          0, mylines[2].indexOf("@") + 1);
+                                      finaData_4 = mylines[2].substring(
+                                          mylines[2].indexOf("@") + 1,
+                                          mylines[2].length);
 
-                                    List mylines =
-                                        bigOneController.text.split("\n");
-
-                                    // print(mylines[0]);
-                                    // print(mylines[1]);
-
-                                    // print(mylines[2]
-                                    //     .substring(0, mylines[2].indexOf("@")));
-                                    // print(mylines[2].substring(
-                                    //     mylines[2].indexOf("@") + 1,
-                                    //     mylines[2].length));
-
-                                    finaData_1 = mylines[0];
-                                    finaData_2 = mylines[1];
-                                    finaData_3 = mylines[2].substring(
-                                        0, mylines[2].indexOf("@") + 1);
-                                    finaData_4 = mylines[2].substring(
-                                        mylines[2].indexOf("@") + 1,
-                                        mylines[2].length);
-
-                                    print(finaData_1);
-                                    print(finaData_2);
-                                    print(finaData_3);
-                                    print(finaData_4);
+                                      Fluttertoast.showToast(
+                                        msg: "Data Setted",
+                                        toastLength: Toast.LENGTH_LONG,
+                                        gravity: ToastGravity.TOP_LEFT,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0,
+                                      );
+                                    } else {
+                                      Fluttertoast.showToast(
+                                        msg: "Input Data First",
+                                        toastLength: Toast.LENGTH_LONG,
+                                        gravity: ToastGravity.TOP_LEFT,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0,
+                                      );
+                                    }
                                   },
                                   child: Container(
                                     decoration:
@@ -211,34 +209,33 @@ class _SportsDemoState extends State<SportsDemo> {
                                 flex: 1,
                                 child: GestureDetector(
                                   onTap: () {
-                                    if (bigOneController.text.isNotEmpty) {
+                                    if (finaData_1 == "" &&
+                                        finaData_2 == "" &&
+                                        finaData_3 == "" &&
+                                        finaData_4 == "") {
+                                      Fluttertoast.showToast(
+                                        msg: "No Data Setted",
+                                        toastLength: Toast.LENGTH_LONG,
+                                        gravity: ToastGravity.TOP_LEFT,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0,
+                                      );
+                                    } else {
                                       mydata.child("1").set({
                                         "legue": finaData_1,
                                         "team": finaData_2,
                                         "score1": finaData_3,
                                         "score2": finaData_4,
                                       });
+
                                       bigOneController.clear();
-                                    } else {
-                                      // showDialogBox(context);
-                                      Fluttertoast.showToast(
-                                          msg: "This is Center Short Toast",
-                                          toastLength: Toast.LENGTH_LONG,
-                                          gravity: ToastGravity.TOP_LEFT,
-                                          timeInSecForIosWeb: 1,
-                                          backgroundColor: Colors.red,
-                                          textColor: Colors.white,
-                                          fontSize: 16.0);
+                                      finaData_1 = "";
+                                      finaData_2 = "";
+                                      finaData_3 = "";
+                                      finaData_4 = "";
                                     }
-
-                                    // mydata.child("1").set({
-                                    //   "legue": finaData_1,
-                                    //   "team": finaData_2,
-                                    //   "score1": finaData_3,
-                                    //   "score2": finaData_4,
-                                    // });
-
-                                    // bigOneController.clear();
                                   },
                                   child: Container(
                                     decoration:
@@ -313,42 +310,38 @@ class _SportsDemoState extends State<SportsDemo> {
                                 flex: 1,
                                 child: GestureDetector(
                                   onTap: () {
-                                    // String myName = "Over 2.5 @1.50";
-                                    // String before = myName.substring(0, myName.indexOf('@'));
-                                    // String after = myName.substring(myName.indexOf('@') + 1, myName.length);
-                                    // print(before);
-                                    // print(after);
+                                    if (bigTwoController.text.isNotEmpty) {
+                                      List mylines =
+                                          bigTwoController.text.split("\n");
 
-                                    // print(bigtextController.text.substring(0,
-                                    //     bigtextController.text.indexOf("\n")));
-                                    // print(bigtextController.text.substring(
-                                    //     bigtextController.text.indexOf("\n") ,
-                                    //     bigtextController.text.indexOf("\n")));
+                                      finaData_1 = mylines[0];
+                                      finaData_2 = mylines[1];
+                                      finaData_3 = mylines[2].substring(
+                                          0, mylines[2].indexOf("@") + 1);
+                                      finaData_4 = mylines[2].substring(
+                                          mylines[2].indexOf("@") + 1,
+                                          mylines[2].length);
 
-                                    List mylines =
-                                        bigTwoController.text.split("\n");
-
-                                    // print(mylines[0]);
-                                    // print(mylines[1]);
-
-                                    // print(mylines[2]
-                                    //     .substring(0, mylines[2].indexOf("@")));
-                                    // print(mylines[2].substring(
-                                    //     mylines[2].indexOf("@") + 1,
-                                    //     mylines[2].length));
-
-                                    finaData_1 = mylines[0];
-                                    finaData_2 = mylines[1];
-                                    finaData_3 = mylines[2].substring(
-                                        0, mylines[2].indexOf("@") + 1);
-                                    finaData_4 = mylines[2].substring(
-                                        mylines[2].indexOf("@") + 1,
-                                        mylines[2].length);
-
-                                    print(finaData_1);
-                                    print(finaData_2);
-                                    print(finaData_3);
-                                    print(finaData_4);
+                                      Fluttertoast.showToast(
+                                        msg: "Data Setted",
+                                        toastLength: Toast.LENGTH_LONG,
+                                        gravity: ToastGravity.TOP_LEFT,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0,
+                                      );
+                                    } else {
+                                      Fluttertoast.showToast(
+                                        msg: "Input Data First",
+                                        toastLength: Toast.LENGTH_LONG,
+                                        gravity: ToastGravity.TOP_LEFT,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0,
+                                      );
+                                    }
                                   },
                                   child: Container(
                                     decoration:
@@ -375,16 +368,32 @@ class _SportsDemoState extends State<SportsDemo> {
                                 flex: 1,
                                 child: GestureDetector(
                                   onTap: () {
-                                    if (bigTwoController.text.isNotEmpty) {
+                                    if (finaData_1 == "" &&
+                                        finaData_2 == "" &&
+                                        finaData_3 == "" &&
+                                        finaData_4 == "") {
+                                      Fluttertoast.showToast(
+                                        msg: "No Data Setted",
+                                        toastLength: Toast.LENGTH_LONG,
+                                        gravity: ToastGravity.TOP_LEFT,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0,
+                                      );
+                                    } else {
                                       mydata.child("2").set({
                                         "legue": finaData_1,
                                         "team": finaData_2,
                                         "score1": finaData_3,
                                         "score2": finaData_4,
                                       });
+
                                       bigTwoController.clear();
-                                    } else {
-                                      print("enter data");
+                                      finaData_1 = "";
+                                      finaData_2 = "";
+                                      finaData_3 = "";
+                                      finaData_4 = "";
                                     }
                                   },
                                   child: Container(
@@ -458,44 +467,38 @@ class _SportsDemoState extends State<SportsDemo> {
                                 flex: 1,
                                 child: GestureDetector(
                                   onTap: () {
-                                    // String myName = "Over 2.5 @1.50";
-                                    // String before = myName.substring(0, myName.indexOf('@'));
-                                    // String after = myName.substring(myName.indexOf('@') + 1, myName.length);
-                                    // print(before);
-                                    // print(after);
+                                    if (bigThreeController.text.isNotEmpty) {
+                                      List mylines =
+                                          bigThreeController.text.split("\n");
 
-                                    // print(bigtextController.text.substring(0,
-                                    //     bigtextController.text.indexOf("\n")));
-                                    // print(bigtextController.text.substring(
-                                    //     bigtextController.text.indexOf("\n") ,
-                                    //     bigtextController.text.indexOf("\n")));
+                                      finaData_1 = mylines[0];
+                                      finaData_2 = mylines[1];
+                                      finaData_3 = mylines[2].substring(
+                                          0, mylines[2].indexOf("@") + 1);
+                                      finaData_4 = mylines[2].substring(
+                                          mylines[2].indexOf("@") + 1,
+                                          mylines[2].length);
 
-                                    List mylines =
-                                        bigThreeController.text.split("\n");
-
-                                    // print(mylines[0]);
-                                    // print(mylines[1]);
-
-                                    // print(mylines[2]
-                                    //     .substring(0, mylines[2].indexOf("@")));
-                                    // print(mylines[2].substring(
-                                    //     mylines[2].indexOf("@") + 1,
-                                    //     mylines[2].length));
-
-                                    finaData_1 = mylines[0];
-                                    finaData_2 = mylines[1];
-
-                                    finaData_3 = mylines[2].substring(
-                                        0, mylines[2].indexOf("@") + 1);
-
-                                    finaData_4 = mylines[2].substring(
-                                        mylines[2].indexOf("@") + 1,
-                                        mylines[2].length);
-
-                                    print(finaData_1);
-                                    print(finaData_2);
-                                    print(finaData_3);
-                                    print(finaData_4);
+                                      Fluttertoast.showToast(
+                                        msg: "Data Setted",
+                                        toastLength: Toast.LENGTH_LONG,
+                                        gravity: ToastGravity.TOP_LEFT,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0,
+                                      );
+                                    } else {
+                                      Fluttertoast.showToast(
+                                        msg: "Input Data First",
+                                        toastLength: Toast.LENGTH_LONG,
+                                        gravity: ToastGravity.TOP_LEFT,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0,
+                                      );
+                                    }
                                   },
                                   child: Container(
                                     decoration:
@@ -522,16 +525,32 @@ class _SportsDemoState extends State<SportsDemo> {
                                 flex: 1,
                                 child: GestureDetector(
                                   onTap: () {
-                                    if (bigThreeController.text.isNotEmpty) {
+                                    if (finaData_1 == "" &&
+                                        finaData_2 == "" &&
+                                        finaData_3 == "" &&
+                                        finaData_4 == "") {
+                                      Fluttertoast.showToast(
+                                        msg: "No Data Setted",
+                                        toastLength: Toast.LENGTH_LONG,
+                                        gravity: ToastGravity.TOP_LEFT,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0,
+                                      );
+                                    } else {
                                       mydata.child("3").set({
                                         "legue": finaData_1,
                                         "team": finaData_2,
                                         "score1": finaData_3,
                                         "score2": finaData_4,
                                       });
+
                                       bigThreeController.clear();
-                                    } else {
-                                      print("enter data");
+                                      finaData_1 = "";
+                                      finaData_2 = "";
+                                      finaData_3 = "";
+                                      finaData_4 = "";
                                     }
                                   },
                                   child: Container(
@@ -606,44 +625,38 @@ class _SportsDemoState extends State<SportsDemo> {
                                 flex: 1,
                                 child: GestureDetector(
                                   onTap: () {
-                                    // String myName = "Over 2.5 @1.50";
-                                    // String before = myName.substring(0, myName.indexOf('@'));
-                                    // String after = myName.substring(myName.indexOf('@') + 1, myName.length);
-                                    // print(before);
-                                    // print(after);
+                                    if (bigFourController.text.isNotEmpty) {
+                                      List mylines =
+                                          bigFourController.text.split("\n");
 
-                                    // print(bigtextController.text.substring(0,
-                                    //     bigtextController.text.indexOf("\n")));
-                                    // print(bigtextController.text.substring(
-                                    //     bigtextController.text.indexOf("\n") ,
-                                    //     bigtextController.text.indexOf("\n")));
+                                      finaData_1 = mylines[0];
+                                      finaData_2 = mylines[1];
+                                      finaData_3 = mylines[2].substring(
+                                          0, mylines[2].indexOf("@") + 1);
+                                      finaData_4 = mylines[2].substring(
+                                          mylines[2].indexOf("@") + 1,
+                                          mylines[2].length);
 
-                                    List mylines =
-                                        bigFourController.text.split("\n");
-
-                                    // print(mylines[0]);
-                                    // print(mylines[1]);
-
-                                    // print(mylines[2]
-                                    //     .substring(0, mylines[2].indexOf("@")));
-                                    // print(mylines[2].substring(
-                                    //     mylines[2].indexOf("@") + 1,
-                                    //     mylines[2].length));
-
-                                    finaData_1 = mylines[0];
-                                    finaData_2 = mylines[1];
-
-                                    finaData_3 = mylines[2].substring(
-                                        0, mylines[2].indexOf("@") + 1);
-
-                                    finaData_4 = mylines[2].substring(
-                                        mylines[2].indexOf("@") + 1,
-                                        mylines[2].length);
-
-                                    print(finaData_1);
-                                    print(finaData_2);
-                                    print(finaData_3);
-                                    print(finaData_4);
+                                      Fluttertoast.showToast(
+                                        msg: "Data Setted",
+                                        toastLength: Toast.LENGTH_LONG,
+                                        gravity: ToastGravity.TOP_LEFT,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0,
+                                      );
+                                    } else {
+                                      Fluttertoast.showToast(
+                                        msg: "Input Data First",
+                                        toastLength: Toast.LENGTH_LONG,
+                                        gravity: ToastGravity.TOP_LEFT,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0,
+                                      );
+                                    }
                                   },
                                   child: Container(
                                     decoration:
@@ -670,16 +683,32 @@ class _SportsDemoState extends State<SportsDemo> {
                                 flex: 1,
                                 child: GestureDetector(
                                   onTap: () {
-                                    if (bigFourController.text.isNotEmpty) {
+                                    if (finaData_1 == "" &&
+                                        finaData_2 == "" &&
+                                        finaData_3 == "" &&
+                                        finaData_4 == "") {
+                                      Fluttertoast.showToast(
+                                        msg: "No Data Setted",
+                                        toastLength: Toast.LENGTH_LONG,
+                                        gravity: ToastGravity.TOP_LEFT,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0,
+                                      );
+                                    } else {
                                       mydata.child("4").set({
                                         "legue": finaData_1,
                                         "team": finaData_2,
                                         "score1": finaData_3,
                                         "score2": finaData_4,
                                       });
+
                                       bigFourController.clear();
-                                    } else {
-                                      print("enter data");
+                                      finaData_1 = "";
+                                      finaData_2 = "";
+                                      finaData_3 = "";
+                                      finaData_4 = "";
                                     }
                                   },
                                   child: Container(
@@ -753,44 +782,38 @@ class _SportsDemoState extends State<SportsDemo> {
                                 flex: 1,
                                 child: GestureDetector(
                                   onTap: () {
-                                    // String myName = "Over 2.5 @1.50";
-                                    // String before = myName.substring(0, myName.indexOf('@'));
-                                    // String after = myName.substring(myName.indexOf('@') + 1, myName.length);
-                                    // print(before);
-                                    // print(after);
+                                    if (bigFiveController.text.isNotEmpty) {
+                                      List mylines =
+                                          bigFiveController.text.split("\n");
 
-                                    // print(bigtextController.text.substring(0,
-                                    //     bigtextController.text.indexOf("\n")));
-                                    // print(bigtextController.text.substring(
-                                    //     bigtextController.text.indexOf("\n") ,
-                                    //     bigtextController.text.indexOf("\n")));
+                                      finaData_1 = mylines[0];
+                                      finaData_2 = mylines[1];
+                                      finaData_3 = mylines[2].substring(
+                                          0, mylines[2].indexOf("@") + 1);
+                                      finaData_4 = mylines[2].substring(
+                                          mylines[2].indexOf("@") + 1,
+                                          mylines[2].length);
 
-                                    List mylines =
-                                        bigFiveController.text.split("\n");
-
-                                    // print(mylines[0]);
-                                    // print(mylines[1]);
-
-                                    // print(mylines[2]
-                                    //     .substring(0, mylines[2].indexOf("@")));
-                                    // print(mylines[2].substring(
-                                    //     mylines[2].indexOf("@") + 1,
-                                    //     mylines[2].length));
-
-                                    finaData_1 = mylines[0];
-                                    finaData_2 = mylines[1];
-
-                                    finaData_3 = mylines[2].substring(
-                                        0, mylines[2].indexOf("@") + 1);
-
-                                    finaData_4 = mylines[2].substring(
-                                        mylines[2].indexOf("@") + 1,
-                                        mylines[2].length);
-
-                                    print(finaData_1);
-                                    print(finaData_2);
-                                    print(finaData_3);
-                                    print(finaData_4);
+                                      Fluttertoast.showToast(
+                                        msg: "Data Setted",
+                                        toastLength: Toast.LENGTH_LONG,
+                                        gravity: ToastGravity.TOP_LEFT,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0,
+                                      );
+                                    } else {
+                                      Fluttertoast.showToast(
+                                        msg: "Input Data First",
+                                        toastLength: Toast.LENGTH_LONG,
+                                        gravity: ToastGravity.TOP_LEFT,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0,
+                                      );
+                                    }
                                   },
                                   child: Container(
                                     decoration:
@@ -817,16 +840,32 @@ class _SportsDemoState extends State<SportsDemo> {
                                 flex: 1,
                                 child: GestureDetector(
                                   onTap: () {
-                                    if (bigFiveController.text.isNotEmpty) {
+                                    if (finaData_1 == "" &&
+                                        finaData_2 == "" &&
+                                        finaData_3 == "" &&
+                                        finaData_4 == "") {
+                                      Fluttertoast.showToast(
+                                        msg: "No Data Setted",
+                                        toastLength: Toast.LENGTH_LONG,
+                                        gravity: ToastGravity.TOP_LEFT,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0,
+                                      );
+                                    } else {
                                       mydata.child("5").set({
                                         "legue": finaData_1,
                                         "team": finaData_2,
                                         "score1": finaData_3,
                                         "score2": finaData_4,
                                       });
+
                                       bigFiveController.clear();
-                                    } else {
-                                      print("enter data");
+                                      finaData_1 = "";
+                                      finaData_2 = "";
+                                      finaData_3 = "";
+                                      finaData_4 = "";
                                     }
                                   },
                                   child: Container(
@@ -900,44 +939,38 @@ class _SportsDemoState extends State<SportsDemo> {
                                 flex: 1,
                                 child: GestureDetector(
                                   onTap: () {
-                                    // String myName = "Over 2.5 @1.50";
-                                    // String before = myName.substring(0, myName.indexOf('@'));
-                                    // String after = myName.substring(myName.indexOf('@') + 1, myName.length);
-                                    // print(before);
-                                    // print(after);
+                                    if (bigSixController.text.isNotEmpty) {
+                                      List mylines =
+                                          bigSixController.text.split("\n");
 
-                                    // print(bigtextController.text.substring(0,
-                                    //     bigtextController.text.indexOf("\n")));
-                                    // print(bigtextController.text.substring(
-                                    //     bigtextController.text.indexOf("\n") ,
-                                    //     bigtextController.text.indexOf("\n")));
+                                      finaData_1 = mylines[0];
+                                      finaData_2 = mylines[1];
+                                      finaData_3 = mylines[2].substring(
+                                          0, mylines[2].indexOf("@") + 1);
+                                      finaData_4 = mylines[2].substring(
+                                          mylines[2].indexOf("@") + 1,
+                                          mylines[2].length);
 
-                                    List mylines =
-                                        bigSixController.text.split("\n");
-
-                                    // print(mylines[0]);
-                                    // print(mylines[1]);
-
-                                    // print(mylines[2]
-                                    //     .substring(0, mylines[2].indexOf("@")));
-                                    // print(mylines[2].substring(
-                                    //     mylines[2].indexOf("@") + 1,
-                                    //     mylines[2].length));
-
-                                    finaData_1 = mylines[0];
-                                    finaData_2 = mylines[1];
-
-                                    finaData_3 = mylines[2].substring(
-                                        0, mylines[2].indexOf("@") + 1);
-
-                                    finaData_4 = mylines[2].substring(
-                                        mylines[2].indexOf("@") + 1,
-                                        mylines[2].length);
-
-                                    print(finaData_1);
-                                    print(finaData_2);
-                                    print(finaData_3);
-                                    print(finaData_4);
+                                      Fluttertoast.showToast(
+                                        msg: "Data Setted",
+                                        toastLength: Toast.LENGTH_LONG,
+                                        gravity: ToastGravity.TOP_LEFT,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0,
+                                      );
+                                    } else {
+                                      Fluttertoast.showToast(
+                                        msg: "Input Data First",
+                                        toastLength: Toast.LENGTH_LONG,
+                                        gravity: ToastGravity.TOP_LEFT,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0,
+                                      );
+                                    }
                                   },
                                   child: Container(
                                     decoration:
@@ -964,16 +997,32 @@ class _SportsDemoState extends State<SportsDemo> {
                                 flex: 1,
                                 child: GestureDetector(
                                   onTap: () {
-                                    if (bigSixController.text.isNotEmpty) {
+                                    if (finaData_1 == "" &&
+                                        finaData_2 == "" &&
+                                        finaData_3 == "" &&
+                                        finaData_4 == "") {
+                                      Fluttertoast.showToast(
+                                        msg: "No Data Setted",
+                                        toastLength: Toast.LENGTH_LONG,
+                                        gravity: ToastGravity.TOP_LEFT,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0,
+                                      );
+                                    } else {
                                       mydata.child("6").set({
                                         "legue": finaData_1,
                                         "team": finaData_2,
                                         "score1": finaData_3,
                                         "score2": finaData_4,
                                       });
+
                                       bigSixController.clear();
-                                    } else {
-                                      print("enter data");
+                                      finaData_1 = "";
+                                      finaData_2 = "";
+                                      finaData_3 = "";
+                                      finaData_4 = "";
                                     }
                                   },
                                   child: Container(
@@ -1047,44 +1096,38 @@ class _SportsDemoState extends State<SportsDemo> {
                                 flex: 1,
                                 child: GestureDetector(
                                   onTap: () {
-                                    // String myName = "Over 2.5 @1.50";
-                                    // String before = myName.substring(0, myName.indexOf('@'));
-                                    // String after = myName.substring(myName.indexOf('@') + 1, myName.length);
-                                    // print(before);
-                                    // print(after);
+                                    if (bigSevenController.text.isNotEmpty) {
+                                      List mylines =
+                                          bigSevenController.text.split("\n");
 
-                                    // print(bigtextController.text.substring(0,
-                                    //     bigtextController.text.indexOf("\n")));
-                                    // print(bigtextController.text.substring(
-                                    //     bigtextController.text.indexOf("\n") ,
-                                    //     bigtextController.text.indexOf("\n")));
+                                      finaData_1 = mylines[0];
+                                      finaData_2 = mylines[1];
+                                      finaData_3 = mylines[2].substring(
+                                          0, mylines[2].indexOf("@") + 1);
+                                      finaData_4 = mylines[2].substring(
+                                          mylines[2].indexOf("@") + 1,
+                                          mylines[2].length);
 
-                                    List mylines =
-                                        bigSevenController.text.split("\n");
-
-                                    // print(mylines[0]);
-                                    // print(mylines[1]);
-
-                                    // print(mylines[2]
-                                    //     .substring(0, mylines[2].indexOf("@")));
-                                    // print(mylines[2].substring(
-                                    //     mylines[2].indexOf("@") + 1,
-                                    //     mylines[2].length));
-
-                                    finaData_1 = mylines[0];
-                                    finaData_2 = mylines[1];
-
-                                    finaData_3 = mylines[2].substring(
-                                        0, mylines[2].indexOf("@") + 1);
-
-                                    finaData_4 = mylines[2].substring(
-                                        mylines[2].indexOf("@") + 1,
-                                        mylines[2].length);
-
-                                    print(finaData_1);
-                                    print(finaData_2);
-                                    print(finaData_3);
-                                    print(finaData_4);
+                                      Fluttertoast.showToast(
+                                        msg: "Data Setted",
+                                        toastLength: Toast.LENGTH_LONG,
+                                        gravity: ToastGravity.TOP_LEFT,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0,
+                                      );
+                                    } else {
+                                      Fluttertoast.showToast(
+                                        msg: "Input Data First",
+                                        toastLength: Toast.LENGTH_LONG,
+                                        gravity: ToastGravity.TOP_LEFT,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0,
+                                      );
+                                    }
                                   },
                                   child: Container(
                                     decoration:
@@ -1111,16 +1154,32 @@ class _SportsDemoState extends State<SportsDemo> {
                                 flex: 1,
                                 child: GestureDetector(
                                   onTap: () {
-                                    if (bigSevenController.text.isNotEmpty) {
+                                    if (finaData_1 == "" &&
+                                        finaData_2 == "" &&
+                                        finaData_3 == "" &&
+                                        finaData_4 == "") {
+                                      Fluttertoast.showToast(
+                                        msg: "No Data Setted",
+                                        toastLength: Toast.LENGTH_LONG,
+                                        gravity: ToastGravity.TOP_LEFT,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0,
+                                      );
+                                    } else {
                                       mydata.child("7").set({
                                         "legue": finaData_1,
                                         "team": finaData_2,
                                         "score1": finaData_3,
                                         "score2": finaData_4,
                                       });
+
                                       bigSevenController.clear();
-                                    } else {
-                                      print("enter data");
+                                      finaData_1 = "";
+                                      finaData_2 = "";
+                                      finaData_3 = "";
+                                      finaData_4 = "";
                                     }
                                   },
                                   child: Container(
@@ -1170,23 +1229,60 @@ class _SportsDemoState extends State<SportsDemo> {
                                 padding: const EdgeInsets.all(5.0),
                                 child: Column(
                                   children: [
-                                    Text(mynumber.toString()),
-                                    Text(snapshot
-                                        .child('legue')
-                                        .value
-                                        .toString()),
-                                    Text(snapshot
-                                        .child('team')
-                                        .value
-                                        .toString()),
-                                    Text(snapshot
-                                        .child('score1')
-                                        .value
-                                        .toString()),
-                                    Text(snapshot
-                                        .child('score2')
-                                        .value
-                                        .toString()),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          flex: 1,
+                                          child: Container(
+                                            child: Text(
+                                              snapshot.key.toString(),
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 3,
+                                          child: Container(
+                                            child: Column(
+                                              children: [
+                                                Text(snapshot
+                                                    .child('legue')
+                                                    .value
+                                                    .toString()),
+                                                Text(snapshot
+                                                    .child('team')
+                                                    .value
+                                                    .toString()),
+                                                Text(snapshot
+                                                    .child('score1')
+                                                    .value
+                                                    .toString()),
+                                                Text(snapshot
+                                                    .child('score2')
+                                                    .value
+                                                    .toString()),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 1,
+                                          child: Container(
+                                            child: InkWell(
+                                              onTap: () {
+                                                mydata
+                                                    .child(
+                                                        snapshot.key.toString())
+                                                    .remove();
+                                              },
+                                              child: Icon(
+                                                Icons.delete,
+                                                color: Colors.red,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ),

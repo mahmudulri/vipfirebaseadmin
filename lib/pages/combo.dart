@@ -542,6 +542,7 @@ class _ComboTipsState extends State<ComboTips> {
                       child: FirebaseAnimatedList(
                         query: mydata,
                         itemBuilder: (context, snapshot, animation, index) {
+                          int mynumber = index + 1;
                           return Padding(
                             padding: const EdgeInsets.only(
                                 left: 5, right: 5, bottom: 5),
@@ -551,22 +552,60 @@ class _ComboTipsState extends State<ComboTips> {
                                 padding: const EdgeInsets.all(5.0),
                                 child: Column(
                                   children: [
-                                    Text(snapshot
-                                        .child('legue')
-                                        .value
-                                        .toString()),
-                                    Text(snapshot
-                                        .child('team')
-                                        .value
-                                        .toString()),
-                                    Text(snapshot
-                                        .child('score1')
-                                        .value
-                                        .toString()),
-                                    Text(snapshot
-                                        .child('score2')
-                                        .value
-                                        .toString()),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          flex: 1,
+                                          child: Container(
+                                            child: Text(
+                                              snapshot.key.toString(),
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 3,
+                                          child: Container(
+                                            child: Column(
+                                              children: [
+                                                Text(snapshot
+                                                    .child('legue')
+                                                    .value
+                                                    .toString()),
+                                                Text(snapshot
+                                                    .child('team')
+                                                    .value
+                                                    .toString()),
+                                                Text(snapshot
+                                                    .child('score1')
+                                                    .value
+                                                    .toString()),
+                                                Text(snapshot
+                                                    .child('score2')
+                                                    .value
+                                                    .toString()),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 1,
+                                          child: Container(
+                                            child: InkWell(
+                                              onTap: () {
+                                                mydata
+                                                    .child(
+                                                        snapshot.key.toString())
+                                                    .remove();
+                                              },
+                                              child: Icon(
+                                                Icons.delete,
+                                                color: Colors.red,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ),
