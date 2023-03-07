@@ -1,7 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-import 'package:vipfirebase_admin/landing.dart';
+import 'landing.dart';
+import 'pages/freetips.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

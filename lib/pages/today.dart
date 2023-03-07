@@ -3,6 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
+import 'package:vipfirebase_admin/pages/premiumall/premium_landing.dart';
 
 class TodayTips extends StatefulWidget {
   const TodayTips({super.key});
@@ -16,6 +17,21 @@ class _TodayTipsState extends State<TodayTips> {
   TextEditingController teamController = TextEditingController();
   TextEditingController score_1Controller = TextEditingController();
   TextEditingController score_2Controller = TextEditingController();
+
+  TextEditingController bigOneController = TextEditingController();
+  TextEditingController bigTwoController = TextEditingController();
+  TextEditingController bigThreeController = TextEditingController();
+
+  // TextEditingController lineOnetext = TextEditingController();
+  // TextEditingController lineTwotext = TextEditingController();
+  // TextEditingController lineThreetext = TextEditingController();
+  // TextEditingController lineFourtext = TextEditingController();
+
+  String finaData_1 = "";
+  String finaData_2 = "";
+  String finaData_3 = "";
+  String finaData_4 = "";
+
   @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
@@ -29,6 +45,37 @@ class _TodayTipsState extends State<TodayTips> {
         centerTitle: true,
         elevation: 0.0,
         title: Text("Todays Tips"),
+      ),
+      drawer: Drawer(
+        child: Column(
+          children: [
+            SizedBox(
+              height: screenHeight * 0.10,
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (ctx) => PremiumLanding()));
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                    border: Border.all(
+                  width: 1,
+                  color: Colors.grey,
+                )),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "Premium Data",
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -52,6 +99,7 @@ class _TodayTipsState extends State<TodayTips> {
                             height: screenHeight * 0.020,
                           ),
 
+                          //......................................1st.............1st
                           Row(
                             children: [
                               Expanded(
@@ -79,6 +127,7 @@ class _TodayTipsState extends State<TodayTips> {
                                   child: Container(
                                     width: screenWidth * 0.200,
                                     child: TextField(
+                                      controller: bigOneController,
                                       maxLines: 5,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
@@ -92,17 +141,90 @@ class _TodayTipsState extends State<TodayTips> {
                               ),
                               Expanded(
                                 flex: 1,
-                                child: Container(
-                                  decoration:
-                                      BoxDecoration(color: Color(0xff34495e)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Center(
-                                      child: Text(
-                                        "ADD DATA",
-                                        style: TextStyle(
-                                          fontSize: screenWidth * 0.012,
-                                          color: Colors.white,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    // String myName = "Over 2.5 @1.50";
+                                    // String before = myName.substring(0, myName.indexOf('@'));
+                                    // String after = myName.substring(myName.indexOf('@') + 1, myName.length);
+                                    // print(before);
+                                    // print(after);
+
+                                    // print(bigtextController.text.substring(0,
+                                    //     bigtextController.text.indexOf("\n")));
+                                    // print(bigtextController.text.substring(
+                                    //     bigtextController.text.indexOf("\n") ,
+                                    //     bigtextController.text.indexOf("\n")));
+
+                                    List mylines =
+                                        bigOneController.text.split("\n");
+
+                                    // print(mylines[0]);
+                                    // print(mylines[1]);
+
+                                    // print(mylines[2]
+                                    //     .substring(0, mylines[2].indexOf("@")));
+                                    // print(mylines[2].substring(
+                                    //     mylines[2].indexOf("@") + 1,
+                                    //     mylines[2].length));
+
+                                    finaData_1 = mylines[0];
+                                    finaData_2 = mylines[1];
+                                    finaData_3 = mylines[2].substring(
+                                        0, mylines[2].indexOf("@") + 1);
+                                    finaData_4 = mylines[2].substring(
+                                        mylines[2].indexOf("@") + 1,
+                                        mylines[2].length);
+
+                                    print(finaData_1);
+                                    print(finaData_2);
+                                    print(finaData_3);
+                                    print(finaData_4);
+                                  },
+                                  child: Container(
+                                    decoration:
+                                        BoxDecoration(color: Color(0xff34495e)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Center(
+                                        child: Text(
+                                          "Set Data",
+                                          style: TextStyle(
+                                            fontSize: screenWidth * 0.012,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: screenWidth * 0.005,
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    mydata.child("2").set({
+                                      "legue": finaData_1,
+                                      "team": finaData_2,
+                                      "score1": finaData_3,
+                                      "score2": finaData_4,
+                                    });
+                                    bigOneController.clear();
+                                  },
+                                  child: Container(
+                                    decoration:
+                                        BoxDecoration(color: Color(0xff34495e)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Center(
+                                        child: Text(
+                                          "ADD DATA",
+                                          style: TextStyle(
+                                            fontSize: screenWidth * 0.012,
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -148,6 +270,7 @@ class _TodayTipsState extends State<TodayTips> {
                                   child: Container(
                                     width: screenWidth * 0.200,
                                     child: TextField(
+                                      controller: bigTwoController,
                                       maxLines: 5,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
@@ -161,17 +284,90 @@ class _TodayTipsState extends State<TodayTips> {
                               ),
                               Expanded(
                                 flex: 1,
-                                child: Container(
-                                  decoration:
-                                      BoxDecoration(color: Color(0xff34495e)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Center(
-                                      child: Text(
-                                        "ADD DATA",
-                                        style: TextStyle(
-                                          fontSize: screenWidth * 0.012,
-                                          color: Colors.white,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    // String myName = "Over 2.5 @1.50";
+                                    // String before = myName.substring(0, myName.indexOf('@'));
+                                    // String after = myName.substring(myName.indexOf('@') + 1, myName.length);
+                                    // print(before);
+                                    // print(after);
+
+                                    // print(bigtextController.text.substring(0,
+                                    //     bigtextController.text.indexOf("\n")));
+                                    // print(bigtextController.text.substring(
+                                    //     bigtextController.text.indexOf("\n") ,
+                                    //     bigtextController.text.indexOf("\n")));
+
+                                    List mylines =
+                                        bigTwoController.text.split("\n");
+
+                                    // print(mylines[0]);
+                                    // print(mylines[1]);
+
+                                    // print(mylines[2]
+                                    //     .substring(0, mylines[2].indexOf("@")));
+                                    // print(mylines[2].substring(
+                                    //     mylines[2].indexOf("@") + 1,
+                                    //     mylines[2].length));
+
+                                    finaData_1 = mylines[0];
+                                    finaData_2 = mylines[1];
+                                    finaData_3 = mylines[2].substring(
+                                        0, mylines[2].indexOf("@") + 1);
+                                    finaData_4 = mylines[2].substring(
+                                        mylines[2].indexOf("@") + 1,
+                                        mylines[2].length);
+
+                                    print(finaData_1);
+                                    print(finaData_2);
+                                    print(finaData_3);
+                                    print(finaData_4);
+                                  },
+                                  child: Container(
+                                    decoration:
+                                        BoxDecoration(color: Color(0xff34495e)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Center(
+                                        child: Text(
+                                          "Set Data",
+                                          style: TextStyle(
+                                            fontSize: screenWidth * 0.012,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: screenWidth * 0.005,
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    mydata.child("2").set({
+                                      "legue": finaData_1,
+                                      "team": finaData_2,
+                                      "score1": finaData_3,
+                                      "score2": finaData_4,
+                                    });
+                                    bigTwoController.clear();
+                                  },
+                                  child: Container(
+                                    decoration:
+                                        BoxDecoration(color: Color(0xff34495e)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Center(
+                                        child: Text(
+                                          "ADD DATA",
+                                          style: TextStyle(
+                                            fontSize: screenWidth * 0.012,
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -188,6 +384,10 @@ class _TodayTipsState extends State<TodayTips> {
                           SizedBox(
                             height: 5,
                           ),
+                          //.........................................4th .........4th
+
+                          //........................................5th......5th
+
                           Row(
                             children: [
                               Expanded(
@@ -215,6 +415,7 @@ class _TodayTipsState extends State<TodayTips> {
                                   child: Container(
                                     width: screenWidth * 0.200,
                                     child: TextField(
+                                      controller: bigThreeController,
                                       maxLines: 5,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
@@ -228,17 +429,59 @@ class _TodayTipsState extends State<TodayTips> {
                               ),
                               Expanded(
                                 flex: 1,
-                                child: Container(
-                                  decoration:
-                                      BoxDecoration(color: Color(0xff34495e)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Center(
-                                      child: Text(
-                                        "ADD DATA",
-                                        style: TextStyle(
-                                          fontSize: screenWidth * 0.012,
-                                          color: Colors.white,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    // String myName = "Over 2.5 @1.50";
+                                    // String before = myName.substring(0, myName.indexOf('@'));
+                                    // String after = myName.substring(myName.indexOf('@') + 1, myName.length);
+                                    // print(before);
+                                    // print(after);
+
+                                    // print(bigtextController.text.substring(0,
+                                    //     bigtextController.text.indexOf("\n")));
+                                    // print(bigtextController.text.substring(
+                                    //     bigtextController.text.indexOf("\n") ,
+                                    //     bigtextController.text.indexOf("\n")));
+
+                                    List mylines =
+                                        bigThreeController.text.split("\n");
+
+                                    // print(mylines[0]);
+                                    // print(mylines[1]);
+
+                                    // print(mylines[2]
+                                    //     .substring(0, mylines[2].indexOf("@")));
+                                    // print(mylines[2].substring(
+                                    //     mylines[2].indexOf("@") + 1,
+                                    //     mylines[2].length));
+
+                                    finaData_1 = mylines[0];
+                                    finaData_2 = mylines[1];
+
+                                    finaData_3 = mylines[2].substring(
+                                        0, mylines[2].indexOf("@") + 1);
+
+                                    finaData_4 = mylines[2].substring(
+                                        mylines[2].indexOf("@") + 1,
+                                        mylines[2].length);
+
+                                    print(finaData_1);
+                                    print(finaData_2);
+                                    print(finaData_3);
+                                    print(finaData_4);
+                                  },
+                                  child: Container(
+                                    decoration:
+                                        BoxDecoration(color: Color(0xff34495e)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Center(
+                                        child: Text(
+                                          "Set Data",
+                                          style: TextStyle(
+                                            fontSize: screenWidth * 0.012,
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -246,133 +489,32 @@ class _TodayTipsState extends State<TodayTips> {
                                 ),
                               ),
                               SizedBox(
-                                width: screenWidth * 0.020,
+                                width: screenWidth * 0.005,
                               ),
-                            ],
-                          ),
-                          //.........................................4th .........4th
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            children: [
                               Expanded(
                                 flex: 1,
-                                child: Center(
-                                  child: Text(
-                                    "4",
-                                    style: TextStyle(
-                                      fontSize: screenWidth * 0.020,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: Container(
-                                  height: screenHeight * 0.120,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      width: 2,
-                                      color: Colors.black,
-                                    ),
-                                  ),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    mydata.child("2").set({
+                                      "legue": finaData_1,
+                                      "team": finaData_2,
+                                      "score1": finaData_3,
+                                      "score2": finaData_4,
+                                    });
+                                    bigThreeController.clear();
+                                  },
                                   child: Container(
-                                    width: screenWidth * 0.200,
-                                    child: TextField(
-                                      maxLines: 5,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: screenWidth * 0.020,
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Container(
-                                  decoration:
-                                      BoxDecoration(color: Color(0xff34495e)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Center(
-                                      child: Text(
-                                        "ADD DATA",
-                                        style: TextStyle(
-                                          fontSize: screenWidth * 0.012,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: screenWidth * 0.020,
-                              ),
-                            ],
-                          ),
-
-                          //........................................5th......5th
-
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: Center(
-                                  child: Text(
-                                    "5",
-                                    style: TextStyle(
-                                      fontSize: screenWidth * 0.020,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: Container(
-                                  height: screenHeight * 0.120,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      width: 2,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  child: Container(
-                                    width: screenWidth * 0.200,
-                                    child: TextField(
-                                      maxLines: 5,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: screenWidth * 0.020,
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Container(
-                                  decoration:
-                                      BoxDecoration(color: Color(0xff34495e)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Center(
-                                      child: Text(
-                                        "ADD DATA",
-                                        style: TextStyle(
-                                          fontSize: screenWidth * 0.012,
-                                          color: Colors.white,
+                                    decoration:
+                                        BoxDecoration(color: Color(0xff34495e)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Center(
+                                        child: Text(
+                                          "ADD DATA",
+                                          style: TextStyle(
+                                            fontSize: screenWidth * 0.012,
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ),
                                     ),

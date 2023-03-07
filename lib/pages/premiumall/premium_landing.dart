@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 
 import 'package:vipfirebase_admin/pages/today.dart';
 
-import 'pages/bonus.dart';
-import 'pages/combo.dart';
-import 'pages/dailyfiveplus.dart';
-import 'pages/sports.dart';
-import 'pages/sure.dart';
+import '../bonus.dart';
+import '../combo.dart';
+import '../dailyfiveplus.dart';
+import '../sports.dart';
+import '../sure.dart';
 
-class LandingPage extends StatefulWidget {
-  const LandingPage({super.key});
+class PremiumLanding extends StatefulWidget {
+  const PremiumLanding({super.key});
 
   @override
-  State<LandingPage> createState() => _LandingPageState();
+  State<PremiumLanding> createState() => _PremiumLandingState();
 }
 
-class _LandingPageState extends State<LandingPage> {
+class _PremiumLandingState extends State<PremiumLanding> {
   var _currentIndex = 0;
   final pages = [
     TodayTips(),
@@ -43,31 +43,31 @@ class _LandingPageState extends State<LandingPage> {
             icon: Icon(
               Icons.sports_football,
             ),
-            label: "Today Tips",
+            label: "ELITE",
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.sports_football,
             ),
-            label: "Daily Five Plus",
+            label: "SPECIAL",
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.sports_football,
             ),
-            label: "Sure Tips",
+            label: "SINGLE",
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.sports_football,
             ),
-            label: "Combo Tips",
+            label: "HT/FT",
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.sports_football,
             ),
-            label: "Bonus Tips",
+            label: "50+ ODDS",
           ),
           BottomNavigationBarItem(
             icon: Icon(
