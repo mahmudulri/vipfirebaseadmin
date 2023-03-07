@@ -16,7 +16,7 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
-  var _currentIndex = 0;
+  var _currentIndex = 5;
   final pages = [
     TodayTips(),
     DailyFivePlus(),

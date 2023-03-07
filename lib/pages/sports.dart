@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+import 'package:intl/intl.dart';
 import '../customdialog.dart';
 import 'premiumall/premium_landing.dart';
 
@@ -39,21 +39,78 @@ class _SportsDemoState extends State<SportsDemo> {
   String finaData_3 = "";
   String finaData_4 = "";
 
+  String finalDate = "20 fef 2023";
+
+  DateTime? _dateTime;
+  getdate() async {
+    DateTime? date = await showDatePicker(
+      context: context,
+      initialDate: DateTime(DateTime.now().year),
+      firstDate: DateTime(DateTime.now().year - 10),
+      lastDate: DateTime(DateTime.now().year + 2),
+    );
+
+    setState(() {
+      _dateTime = date;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
 
     final mydata = FirebaseDatabase.instance.ref("Sports");
-    DatabaseReference reference =
-        FirebaseDatabase.instance.ref().child("Sports");
+    final dateData = FirebaseDatabase.instance.ref("Sports_tips_date");
+    // DatabaseReference reference =
+    //     FirebaseDatabase.instance.ref().child("Sports");
 
     return Scaffold(
       backgroundColor: Colors.grey,
       appBar: AppBar(
         centerTitle: true,
         elevation: 0.0,
-        title: Text("Daily 5 Plus"),
+        title: Row(
+          children: [
+            Text("Sports Demo"),
+            SizedBox(
+              width: screenWidth * .050,
+            ),
+            Container(
+              height: 60,
+              width: 200,
+              child: FirebaseAnimatedList(
+                query: dateData,
+                itemBuilder: (context, snapshot, animation, index) {
+                  return Container(
+                    color: Colors.cyan,
+                    height: 60,
+                    width: 250,
+                    child: Center(
+                      child: Text(
+                        snapshot.child('datetime').value.toString(),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Spacer(),
+            InkWell(
+              onTap: () {
+                dateData.child("1").set({
+                  "datetime": DateFormat('dd-MM-yyyy').format(DateTime.now()),
+                });
+              },
+              child: Container(
+                height: 60,
+                width: 200,
+                color: Colors.blueGrey,
+                child: Center(child: Text("Update Date")),
+              ),
+            ),
+          ],
+        ),
       ),
       drawer: Drawer(
         child: Column(
