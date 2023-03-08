@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:vipfirebase_admin/pages/premiumall/elite.dart';
+import 'package:vipfirebase_admin/pages/premiumall/fifty_plus.dart';
+import 'package:vipfirebase_admin/pages/premiumall/half_full.dart';
+import 'package:vipfirebase_admin/pages/premiumall/single.dart';
+import 'package:vipfirebase_admin/pages/premiumall/special.dart';
 
 import 'package:vipfirebase_admin/pages/today.dart';
 
@@ -18,12 +23,11 @@ class PremiumLanding extends StatefulWidget {
 class _PremiumLandingState extends State<PremiumLanding> {
   var _currentIndex = 0;
   final pages = [
-    TodayTips(),
-    DailyFivePlus(),
-    SureTips(),
-    ComboTips(),
-    BonusTips(),
-    SportsDemo(),
+    EliteVip(),
+    SpecialVip(),
+    SingleVip(),
+    HalfFullVip(),
+    FiftyPlusVip(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -68,12 +72,6 @@ class _PremiumLandingState extends State<PremiumLanding> {
               Icons.sports_football,
             ),
             label: "50+ ODDS",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.sports_football,
-            ),
-            label: "Sports Demo",
           ),
         ],
         onTap: (index) {

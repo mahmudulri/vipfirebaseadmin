@@ -7,14 +7,14 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:vipfirebase_admin/pages/premiumall/premium_landing.dart';
 
-class TodayTips extends StatefulWidget {
-  const TodayTips({super.key});
+class OldElite extends StatefulWidget {
+  const OldElite({super.key});
 
   @override
-  State<TodayTips> createState() => _TodayTipsState();
+  State<OldElite> createState() => _OldEliteState();
 }
 
-class _TodayTipsState extends State<TodayTips> {
+class _OldEliteState extends State<OldElite> {
   TextEditingController leguController = TextEditingController();
   TextEditingController teamController = TextEditingController();
   TextEditingController score_1Controller = TextEditingController();
@@ -23,8 +23,6 @@ class _TodayTipsState extends State<TodayTips> {
   TextEditingController bigOneController = TextEditingController();
   TextEditingController bigTwoController = TextEditingController();
   TextEditingController bigThreeController = TextEditingController();
-
-  final dateData = FirebaseDatabase.instance.ref("Today_Tips_Time");
 
   DateTime now = DateTime.now();
 
@@ -38,7 +36,7 @@ class _TodayTipsState extends State<TodayTips> {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
 
-    final mydata = FirebaseDatabase.instance.ref("Today_Tips");
+    final mydata = FirebaseDatabase.instance.ref("__Elite Vip Success Tips");
 
     return Scaffold(
       backgroundColor: Colors.grey,
@@ -48,51 +46,9 @@ class _TodayTipsState extends State<TodayTips> {
         elevation: 0.0,
         title: Row(
           children: [
-            Text("Today"),
+            Text("OLD ELITE"),
             SizedBox(
               width: screenWidth * .050,
-            ),
-            Container(
-              height: 60,
-              width: 450,
-              child: FirebaseAnimatedList(
-                query: dateData,
-                itemBuilder: (context, snapshot, animation, index) {
-                  return Row(
-                    children: [
-                      Container(
-                        color: Colors.cyan,
-                        height: 60,
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Text(
-                              snapshot.child('date').value.toString(),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Container(
-                        child: Center(
-                          child: snapshot.child('date').value.toString() !=
-                                  "${DateFormat.d().format(now)}-${DateFormat.MMMM().format(now)}-${DateFormat.y().format(now)}"
-                              ? Text(
-                                  "Please update date",
-                                  style: TextStyle(color: Colors.red),
-                                )
-                              : Text(
-                                  "Date Updated",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                        ),
-                      ),
-                    ],
-                  );
-                },
-              ),
             ),
             Spacer(),
             DigitalClock(
@@ -111,20 +67,6 @@ class _TodayTipsState extends State<TodayTips> {
               colonDecoration: BoxDecoration(
                 border: Border.all(),
                 shape: BoxShape.circle,
-              ),
-            ),
-            InkWell(
-              onTap: () {
-                dateData.child("1").set({
-                  "date":
-                      "${DateFormat.d().format(now)}-${DateFormat.MMMM().format(now)}-${DateFormat.y().format(now)}",
-                });
-              },
-              child: Container(
-                height: 60,
-                width: 200,
-                color: Colors.blueGrey,
-                child: Center(child: Text("Update Date")),
               ),
             ),
           ],
@@ -183,7 +125,106 @@ class _TodayTipsState extends State<TodayTips> {
                             height: screenHeight * 0.020,
                           ),
 
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Center(
+                                  child: Text(
+                                    " ",
+                                    style: TextStyle(
+                                      fontSize: screenWidth * 0.020,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Container(
+                                  height: screenHeight * 0.120,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(25),
+                                    border: Border.all(
+                                      width: 2,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  child: Container(
+                                    width: screenWidth * 0.200,
+                                    child: TextField(
+                                      controller: bigOneController,
+                                      maxLines: 5,
+                                      decoration: InputDecoration(
+                                        contentPadding: EdgeInsets.all(20),
+                                        hintText: "Enter Date",
+                                        border: InputBorder.none,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: screenWidth * 0.020,
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: GestureDetector(
+                                  onTap: () {},
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Color(0xff34495e),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Center(
+                                        child: Text(
+                                          "Add Date",
+                                          style: TextStyle(
+                                            fontSize: screenWidth * 0.012,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: screenWidth * 0.005,
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      // color: Color(0xff34495e),
+                                      ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Center(
+                                      child: Text(
+                                        " ",
+                                        style: TextStyle(
+                                          fontSize: screenWidth * 0.012,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: screenWidth * 0.020,
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: screenHeight * 0.020,
+                          ),
+
                           //......................................1st.............1st
+
                           Row(
                             children: [
                               Expanded(
@@ -336,323 +377,6 @@ class _TodayTipsState extends State<TodayTips> {
                               ),
                             ],
                           ),
-
-                          // ..........................................2nd.........2nd
-
-                          SizedBox(
-                            height: 5,
-                          ),
-
-                          Row(
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: Center(
-                                  child: Text(
-                                    "2",
-                                    style: TextStyle(
-                                      fontSize: screenWidth * 0.020,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: Container(
-                                  height: screenHeight * 0.120,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      width: 2,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  child: Container(
-                                    width: screenWidth * 0.200,
-                                    child: TextField(
-                                      controller: bigTwoController,
-                                      maxLines: 5,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: screenWidth * 0.020,
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    if (bigTwoController.text.isNotEmpty) {
-                                      List mylines =
-                                          bigTwoController.text.split("\n");
-
-                                      finaData_1 = mylines[0];
-                                      finaData_2 = mylines[1];
-                                      finaData_3 = mylines[2].substring(
-                                          0, mylines[2].indexOf("@") + 1);
-                                      finaData_4 = mylines[2].substring(
-                                          mylines[2].indexOf("@") + 1,
-                                          mylines[2].length);
-
-                                      Fluttertoast.showToast(
-                                        msg: "Data Setted",
-                                        toastLength: Toast.LENGTH_LONG,
-                                        gravity: ToastGravity.TOP_LEFT,
-                                        timeInSecForIosWeb: 1,
-                                        backgroundColor: Colors.red,
-                                        textColor: Colors.white,
-                                        fontSize: 16.0,
-                                      );
-                                    } else {
-                                      Fluttertoast.showToast(
-                                        msg: "Input Data First",
-                                        toastLength: Toast.LENGTH_LONG,
-                                        gravity: ToastGravity.TOP_LEFT,
-                                        timeInSecForIosWeb: 1,
-                                        backgroundColor: Colors.red,
-                                        textColor: Colors.white,
-                                        fontSize: 16.0,
-                                      );
-                                    }
-                                  },
-                                  child: Container(
-                                    decoration:
-                                        BoxDecoration(color: Color(0xff34495e)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(5.0),
-                                      child: Center(
-                                        child: Text(
-                                          "Set Data",
-                                          style: TextStyle(
-                                            fontSize: screenWidth * 0.012,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: screenWidth * 0.005,
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    if (finaData_1 == "" &&
-                                        finaData_2 == "" &&
-                                        finaData_3 == "" &&
-                                        finaData_4 == "") {
-                                      Fluttertoast.showToast(
-                                        msg: "No Data Setted",
-                                        toastLength: Toast.LENGTH_LONG,
-                                        gravity: ToastGravity.TOP_LEFT,
-                                        timeInSecForIosWeb: 1,
-                                        backgroundColor: Colors.red,
-                                        textColor: Colors.white,
-                                        fontSize: 16.0,
-                                      );
-                                    } else {
-                                      mydata.child("2").set({
-                                        "legue": finaData_1,
-                                        "team": finaData_2,
-                                        "score1": finaData_3,
-                                        "score2": finaData_4,
-                                      });
-
-                                      bigTwoController.clear();
-                                      finaData_1 = "";
-                                      finaData_2 = "";
-                                      finaData_3 = "";
-                                      finaData_4 = "";
-                                    }
-                                  },
-                                  child: Container(
-                                    decoration:
-                                        BoxDecoration(color: Color(0xff34495e)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(5.0),
-                                      child: Center(
-                                        child: Text(
-                                          "ADD DATA",
-                                          style: TextStyle(
-                                            fontSize: screenWidth * 0.012,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: screenWidth * 0.020,
-                              ),
-                            ],
-                          ),
-
-                          //...............................................3rd ..........3rd
-                          SizedBox(
-                            height: 5,
-                          ),
-
-                          Row(
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: Center(
-                                  child: Text(
-                                    "3",
-                                    style: TextStyle(
-                                      fontSize: screenWidth * 0.020,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: Container(
-                                  height: screenHeight * 0.120,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      width: 2,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  child: Container(
-                                    width: screenWidth * 0.200,
-                                    child: TextField(
-                                      controller: bigThreeController,
-                                      maxLines: 5,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: screenWidth * 0.020,
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    if (bigThreeController.text.isNotEmpty) {
-                                      List mylines =
-                                          bigThreeController.text.split("\n");
-
-                                      finaData_1 = mylines[0];
-                                      finaData_2 = mylines[1];
-                                      finaData_3 = mylines[2].substring(
-                                          0, mylines[2].indexOf("@") + 1);
-                                      finaData_4 = mylines[2].substring(
-                                          mylines[2].indexOf("@") + 1,
-                                          mylines[2].length);
-
-                                      Fluttertoast.showToast(
-                                        msg: "Data Setted",
-                                        toastLength: Toast.LENGTH_LONG,
-                                        gravity: ToastGravity.TOP_LEFT,
-                                        timeInSecForIosWeb: 1,
-                                        backgroundColor: Colors.red,
-                                        textColor: Colors.white,
-                                        fontSize: 16.0,
-                                      );
-                                    } else {
-                                      Fluttertoast.showToast(
-                                        msg: "Input Data First",
-                                        toastLength: Toast.LENGTH_LONG,
-                                        gravity: ToastGravity.TOP_LEFT,
-                                        timeInSecForIosWeb: 1,
-                                        backgroundColor: Colors.red,
-                                        textColor: Colors.white,
-                                        fontSize: 16.0,
-                                      );
-                                    }
-                                  },
-                                  child: Container(
-                                    decoration:
-                                        BoxDecoration(color: Color(0xff34495e)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(5.0),
-                                      child: Center(
-                                        child: Text(
-                                          "Set Data",
-                                          style: TextStyle(
-                                            fontSize: screenWidth * 0.012,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: screenWidth * 0.005,
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    if (finaData_1 == "" &&
-                                        finaData_2 == "" &&
-                                        finaData_3 == "" &&
-                                        finaData_4 == "") {
-                                      Fluttertoast.showToast(
-                                        msg: "No Data Setted",
-                                        toastLength: Toast.LENGTH_LONG,
-                                        gravity: ToastGravity.TOP_LEFT,
-                                        timeInSecForIosWeb: 1,
-                                        backgroundColor: Colors.red,
-                                        textColor: Colors.white,
-                                        fontSize: 16.0,
-                                      );
-                                    } else {
-                                      mydata.child("3").set({
-                                        "legue": finaData_1,
-                                        "team": finaData_2,
-                                        "score1": finaData_3,
-                                        "score2": finaData_4,
-                                      });
-
-                                      bigThreeController.clear();
-                                      finaData_1 = "";
-                                      finaData_2 = "";
-                                      finaData_3 = "";
-                                      finaData_4 = "";
-                                    }
-                                  },
-                                  child: Container(
-                                    decoration:
-                                        BoxDecoration(color: Color(0xff34495e)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(5.0),
-                                      child: Center(
-                                        child: Text(
-                                          "ADD DATA",
-                                          style: TextStyle(
-                                            fontSize: screenWidth * 0.012,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: screenWidth * 0.020,
-                              ),
-                            ],
-                          ),
                         ],
                       ),
                     ),
@@ -692,6 +416,10 @@ class _TodayTipsState extends State<TodayTips> {
                                           child: Container(
                                             child: Column(
                                               children: [
+                                                Text(snapshot
+                                                    .child('date')
+                                                    .value
+                                                    .toString()),
                                                 Text(snapshot
                                                     .child('legue')
                                                     .value

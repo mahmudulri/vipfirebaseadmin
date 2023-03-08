@@ -3,6 +3,8 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
+import 'package:intl/intl.dart';
+import 'package:slide_digital_clock/slide_digital_clock.dart';
 
 import 'premiumall/premium_landing.dart';
 
@@ -23,10 +25,9 @@ class _ComboTipsState extends State<ComboTips> {
   TextEditingController bigTwoController = TextEditingController();
   TextEditingController bigThreeController = TextEditingController();
 
-  // TextEditingController lineOnetext = TextEditingController();
-  // TextEditingController lineTwotext = TextEditingController();
-  // TextEditingController lineThreetext = TextEditingController();
-  // TextEditingController lineFourtext = TextEditingController();
+  final dateData = FirebaseDatabase.instance.ref("Combo_Tips_Date");
+
+  DateTime now = DateTime.now();
 
   String finaData_1 = "";
   String finaData_2 = "";
@@ -43,9 +44,92 @@ class _ComboTipsState extends State<ComboTips> {
     return Scaffold(
       backgroundColor: Colors.grey,
       appBar: AppBar(
+        backgroundColor: Colors.black,
         centerTitle: true,
         elevation: 0.0,
-        title: Text("Combo Tips"),
+        title: Row(
+          children: [
+            Text("Combo"),
+            SizedBox(
+              width: screenWidth * .050,
+            ),
+            Container(
+              height: 60,
+              width: 450,
+              child: FirebaseAnimatedList(
+                query: dateData,
+                itemBuilder: (context, snapshot, animation, index) {
+                  return Row(
+                    children: [
+                      Container(
+                        color: Colors.cyan,
+                        height: 60,
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text(
+                              snapshot.child('date').value.toString(),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Container(
+                        child: Center(
+                          child: snapshot.child('date').value.toString() !=
+                                  "${DateFormat.d().format(now)}-${DateFormat.MMMM().format(now)}-${DateFormat.y().format(now)}"
+                              ? Text(
+                                  "Please update date",
+                                  style: TextStyle(color: Colors.red),
+                                )
+                              : Text(
+                                  "Date Updated",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
+            Spacer(),
+            DigitalClock(
+              secondDigitTextStyle: TextStyle(
+                color: Colors.white,
+              ),
+              hourMinuteDigitTextStyle: TextStyle(
+                fontSize: 18,
+                color: Colors.white,
+              ),
+              colon: Icon(
+                Icons.ac_unit,
+                size: 12,
+                color: Colors.white,
+              ),
+              colonDecoration: BoxDecoration(
+                border: Border.all(),
+                shape: BoxShape.circle,
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                dateData.child("1").set({
+                  "date":
+                      "${DateFormat.d().format(now)}-${DateFormat.MMMM().format(now)}-${DateFormat.y().format(now)}",
+                });
+              },
+              child: Container(
+                height: 60,
+                width: 200,
+                color: Colors.blueGrey,
+                child: Center(child: Text("Update Date")),
+              ),
+            ),
+          ],
+        ),
       ),
       drawer: Drawer(
         child: Column(

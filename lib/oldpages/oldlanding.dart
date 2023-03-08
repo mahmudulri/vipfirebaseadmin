@@ -1,29 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:vipfirebase_admin/pages/premiumall/elite.dart';
+import 'package:vipfirebase_admin/pages/premiumall/fifty_plus.dart';
+import 'package:vipfirebase_admin/pages/premiumall/half_full.dart';
+import 'package:vipfirebase_admin/pages/premiumall/single.dart';
+import 'package:vipfirebase_admin/pages/premiumall/special.dart';
 
 import 'package:vipfirebase_admin/pages/today.dart';
 
-import 'pages/bonus.dart';
-import 'pages/combo.dart';
-import 'pages/dailyfiveplus.dart';
-import 'pages/sports.dart';
-import 'pages/sure.dart';
+import 'demo_old.dart';
+import 'old_elite.dart';
+import 'old_fifty_plus.dart';
+import 'old_half_full.dart';
+import 'old_single.dart';
+import 'old_special.dart';
 
-class LandingPage extends StatefulWidget {
-  const LandingPage({super.key});
+class OldLanding extends StatefulWidget {
+  const OldLanding({super.key});
 
   @override
-  State<LandingPage> createState() => _LandingPageState();
+  State<OldLanding> createState() => _OldLandingState();
 }
 
-class _LandingPageState extends State<LandingPage> {
+class _OldLandingState extends State<OldLanding> {
   var _currentIndex = 0;
   final pages = [
-    TodayTips(),
-    DailyFivePlus(),
-    SureTips(),
-    ComboTips(),
-    BonusTips(),
-    SportsDemo(),
+    DemoOld(),
+    OldElite(),
+    OldSpecial(),
+    OldSingle(),
+    OldHalfFull(),
+    OldFifty(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -43,37 +49,37 @@ class _LandingPageState extends State<LandingPage> {
             icon: Icon(
               Icons.sports_football,
             ),
-            label: "Today Tips",
+            label: "DEMO OLD",
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.sports_football,
             ),
-            label: "Daily Five Plus",
+            label: "OLD ELITE",
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.sports_football,
             ),
-            label: "Sure Tips",
+            label: "OLD SPECIAL",
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.sports_football,
             ),
-            label: "Combo Tips",
+            label: "OLD SINGLE",
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.sports_football,
             ),
-            label: "Bonus Tips",
+            label: "OLD HT/FT",
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.sports_football,
             ),
-            label: "Sports Demo",
+            label: "OLD 50+ ODDS",
           ),
         ],
         onTap: (index) {
