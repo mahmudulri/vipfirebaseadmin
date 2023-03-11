@@ -35,11 +35,17 @@ class _DemoOldState extends State<DemoOld> {
   String tipsSerial = "";
 
   @override
+  void initState() {
+    super.initState();
+    serialController.text = "0"; // Setting the initial value for the field.
+  }
+
+  @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
 
-    final mydata = FirebaseDatabase.instance.ref("Demo_old_tips");
+    final mydata = FirebaseDatabase.instance.ref("hasan_test_free");
 
     return Scaffold(
       backgroundColor: Colors.grey,
@@ -144,23 +150,43 @@ class _DemoOldState extends State<DemoOld> {
                               SizedBox(
                                 width: 50,
                               ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    width: 1,
-                                    color: Colors.black,
+                              InkWell(
+                                onTap: () {
+                                  int currentValue =
+                                      int.parse(serialController.text);
+                                  setState(() {
+                                    currentValue++;
+                                    serialController.text =
+                                        currentValue.toString();
+                                  });
+                                  // print(currentValue);
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      width: 1,
+                                      color: Colors.black,
+                                    ),
                                   ),
+                                  height: 50,
+                                  width: 100,
+                                  child: Icon(Icons.add),
                                 ),
-                                height: 50,
-                                width: 100,
-                                child: Icon(Icons.add),
                               ),
                               SizedBox(
                                 width: 10,
                               ),
                               InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  int currentValue =
+                                      int.parse(serialController.text);
+                                  setState(() {
+                                    currentValue--;
+                                    serialController.text =
+                                        currentValue.toString();
+                                  });
+                                },
                                 child: Container(
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
@@ -323,27 +349,27 @@ class _DemoOldState extends State<DemoOld> {
                                         "score2": finaData_4,
                                         "date": finaData_5,
                                       };
-                                      mydata.push().set(tipslist).whenComplete(
-                                          () => Fluttertoast.showToast(
-                                                msg: "Success",
-                                                toastLength: Toast.LENGTH_LONG,
-                                                gravity: ToastGravity.TOP_LEFT,
-                                                timeInSecForIosWeb: 1,
-                                                backgroundColor: Colors.red,
-                                                textColor: Colors.white,
-                                                fontSize: 16.0,
-                                              ));
+                                      // mydata.push().set(tipslist).whenComplete(
+                                      //     () => Fluttertoast.showToast(
+                                      //           msg: "Success",
+                                      //           toastLength: Toast.LENGTH_LONG,
+                                      //           gravity: ToastGravity.TOP_LEFT,
+                                      //           timeInSecForIosWeb: 1,
+                                      //           backgroundColor: Colors.red,
+                                      //           textColor: Colors.white,
+                                      //           fontSize: 16.0,
+                                      //         ));
 
-                                      // mydata
-                                      //     .child(
-                                      //         "${"-" + serialController.text}")
-                                      //     .set({
-                                      //   "legue": finaData_1,
-                                      //   "team": finaData_2,
-                                      //   "score1": finaData_3,
-                                      //   "score2": finaData_4,
-                                      //   "date": finaData_5,
-                                      // });
+                                      mydata
+                                          .child("${serialController.text}")
+                                          // "${"-" + serialController.text}")
+                                          .set({
+                                        "legue": finaData_1,
+                                        "team": finaData_2,
+                                        "score1": finaData_3,
+                                        "score2": finaData_4,
+                                        "date": finaData_5,
+                                      });
 
                                       withoutDateController.clear();
                                       finaData_1 = "";
