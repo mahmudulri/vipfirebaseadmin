@@ -40,12 +40,14 @@ class _DemoOldState extends State<DemoOld> {
     serialController.text = "0"; // Setting the initial value for the field.
   }
 
+  String category = "__Elite Vip Success Tips";
+
   @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
 
-    final mydata = FirebaseDatabase.instance.ref("hasan_test_free");
+    final mydata = FirebaseDatabase.instance.ref(category);
 
     return Scaffold(
       backgroundColor: Colors.grey,
@@ -405,8 +407,42 @@ class _DemoOldState extends State<DemoOld> {
                           SizedBox(
                             height: screenHeight * 0.020,
                           ),
-
-                          //......................................With Date.............With Date
+                          Wrap(
+                            children: [
+                              categorySelect("Old Elite", 0xff2464fa,
+                                  "__Elite Vip Success Tips"),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              categorySelect("Old Special", 0xfff29732,
+                                  "__Special Vip Success Tips"),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              categorySelect("Old Single", 0xff2ba8d9,
+                                  "__Single Vip Success Tips"),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              categorySelect("Old Half Full", 0xff2ba8d9,
+                                  "__HT_FT Vip Success Tips"),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              categorySelect("Old 50+", 0xff2ba8d9,
+                                  "__50+ Odds Vip Success Tips"),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 40,
+                          ),
+                          Text(
+                            "Working On : ${category.substring(category.toString().indexOf("__") + 2, category.toString().length)}",
+                            style: TextStyle(
+                              fontSize: 35,
+                              color: Colors.green,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -416,90 +452,102 @@ class _DemoOldState extends State<DemoOld> {
                   ),
                   Expanded(
                     flex: 1,
-                    child: Container(
-                      color: Colors.grey,
-                      child: FirebaseAnimatedList(
-                        query: mydata,
-                        itemBuilder: (context, snapshot, animation, index) {
-                          // print(snapshot.value.toString());
-
-                          print(snapshot.key!.length);
-
-                          int mynumber = index + 1;
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                                left: 5, right: 5, bottom: 5),
-                            child: Container(
-                              color: Colors.white,
-                              child: Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          flex: 1,
-                                          child: Container(
-                                            child: Text(
-                                              snapshot.key.toString(),
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 3,
-                                          child: Container(
-                                            child: Column(
-                                              children: [
-                                                Text(snapshot
-                                                    .child('date')
-                                                    .value
-                                                    .toString()),
-                                                Text(snapshot
-                                                    .child('legue')
-                                                    .value
-                                                    .toString()),
-                                                Text(snapshot
-                                                    .child('team')
-                                                    .value
-                                                    .toString()),
-                                                Text(snapshot
-                                                    .child('score1')
-                                                    .value
-                                                    .toString()),
-                                                Text(snapshot
-                                                    .child('score2')
-                                                    .value
-                                                    .toString()),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 1,
-                                          child: Container(
-                                            child: InkWell(
-                                              onTap: () {
-                                                mydata
-                                                    .child(
-                                                        snapshot.key.toString())
-                                                    .remove();
-                                              },
-                                              child: Icon(
-                                                Icons.delete,
-                                                color: Colors.red,
+                    child: Column(
+                      children: [
+                        Text(
+                          category.substring(
+                              category.toString().indexOf("__") + 2,
+                              category.toString().length),
+                          style: TextStyle(
+                            fontSize: 25,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            color: Colors.grey,
+                            child: FirebaseAnimatedList(
+                              query: mydata,
+                              itemBuilder:
+                                  (context, snapshot, animation, index) {
+                                int mynumber = index + 1;
+                                return Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 5, right: 5, bottom: 5),
+                                  child: Container(
+                                    color: Colors.white,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                flex: 1,
+                                                child: Container(
+                                                  child: Text(
+                                                    snapshot.key.toString(),
+                                                  ),
+                                                ),
                                               ),
-                                            ),
+                                              Expanded(
+                                                flex: 3,
+                                                child: Container(
+                                                  child: Column(
+                                                    children: [
+                                                      Text(snapshot
+                                                          .child('date')
+                                                          .value
+                                                          .toString()),
+                                                      Text(snapshot
+                                                          .child('legue')
+                                                          .value
+                                                          .toString()),
+                                                      Text(snapshot
+                                                          .child('team')
+                                                          .value
+                                                          .toString()),
+                                                      Text(snapshot
+                                                          .child('score1')
+                                                          .value
+                                                          .toString()),
+                                                      Text(snapshot
+                                                          .child('score2')
+                                                          .value
+                                                          .toString()),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 1,
+                                                child: Container(
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      mydata
+                                                          .child(snapshot.key
+                                                              .toString())
+                                                          .remove();
+                                                    },
+                                                    child: Icon(
+                                                      Icons.delete,
+                                                      color: Colors.red,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ],
-                                ),
-                              ),
+                                  ),
+                                );
+                              },
                             ),
-                          );
-                        },
-                      ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -507,6 +555,28 @@ class _DemoOldState extends State<DemoOld> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget categorySelect(String label, int mcolor, String tipsName) {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          category = tipsName;
+          print(tipsName);
+        });
+      },
+      child: Chip(
+        backgroundColor: category == label ? Colors.black : Color(mcolor),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        label: Text(
+          label,
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        labelPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       ),
     );
   }
