@@ -5,6 +5,7 @@ import 'package:slide_digital_clock/slide_digital_clock.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:vipfirebase_admin/oldpages/oldlanding.dart';
 import 'package:vipfirebase_admin/pages/premiumall/premium_landing.dart';
 
 class TodayTips extends StatefulWidget {
@@ -153,6 +154,34 @@ class _TodayTipsState extends State<TodayTips> {
                     "Premium Data",
                     style: TextStyle(
                       fontSize: 20,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (ctx) => OldLanding()));
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 50,
+                  vertical: 10,
+                ),
+                child: Container(
+                  width: double.maxFinite,
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                    width: 1,
+                    color: Colors.grey,
+                  )),
+                  child: Center(
+                    child: Text(
+                      "Old Data",
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
                     ),
                   ),
                 ),

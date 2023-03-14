@@ -40,7 +40,7 @@ class _DemoOldState extends State<DemoOld> {
     serialController.text = "0"; // Setting the initial value for the field.
   }
 
-  String category = "__Elite Vip Success Tips";
+  String category = "__HT_FT Vip Success Tips";
 
   @override
   Widget build(BuildContext context) {

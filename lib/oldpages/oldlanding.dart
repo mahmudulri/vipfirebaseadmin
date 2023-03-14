@@ -24,12 +24,12 @@ class OldLanding extends StatefulWidget {
 class _OldLandingState extends State<OldLanding> {
   var _currentIndex = 0;
   final pages = [
-    DemoOld(),
     OldElite(),
     OldSpecial(),
     OldSingle(),
     OldHalfFull(),
     OldFifty(),
+    // DemoOld(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -45,12 +45,6 @@ class _OldLandingState extends State<OldLanding> {
         // backgroundColor: Color(0xff2c3e50),
         currentIndex: _currentIndex,
         items: [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.sports_football,
-            ),
-            label: "DEMO OLD",
-          ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.sports_football,
@@ -81,6 +75,12 @@ class _OldLandingState extends State<OldLanding> {
             ),
             label: "OLD 50+ ODDS",
           ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(
+          //     Icons.sports_football,
+          //   ),
+          //   label: "DEMO OLD",
+          // ),
         ],
         onTap: (index) {
           setState(() {

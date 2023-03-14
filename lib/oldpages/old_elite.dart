@@ -5,6 +5,7 @@ import 'package:slide_digital_clock/slide_digital_clock.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:vipfirebase_admin/landing.dart';
 import 'package:vipfirebase_admin/pages/premiumall/premium_landing.dart';
 
 class OldElite extends StatefulWidget {
@@ -20,9 +21,9 @@ class _OldEliteState extends State<OldElite> {
   TextEditingController score_1Controller = TextEditingController();
   TextEditingController score_2Controller = TextEditingController();
 
-  TextEditingController bigOneController = TextEditingController();
-  TextEditingController bigTwoController = TextEditingController();
-  TextEditingController bigThreeController = TextEditingController();
+  TextEditingController withoutDateController = TextEditingController();
+
+  TextEditingController serialController = TextEditingController();
 
   DateTime now = DateTime.now();
 
@@ -30,13 +31,24 @@ class _OldEliteState extends State<OldElite> {
   String finaData_2 = "";
   String finaData_3 = "";
   String finaData_4 = "";
+  String finaData_5 = "";
+
+  String tipsSerial = "";
+
+  @override
+  void initState() {
+    super.initState();
+    serialController.text = "0"; // Setting the initial value for the field.
+  }
+
+  String category = "__Elite Vip Success Tips";
 
   @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
 
-    final mydata = FirebaseDatabase.instance.ref("__Elite Vip Success Tips");
+    final mydata = FirebaseDatabase.instance.ref(category);
 
     return Scaffold(
       backgroundColor: Colors.grey,
@@ -46,7 +58,7 @@ class _OldEliteState extends State<OldElite> {
         elevation: 0.0,
         title: Row(
           children: [
-            Text("OLD ELITE"),
+            Text("Old Elite"),
             SizedBox(
               width: screenWidth * .050,
             ),
@@ -78,23 +90,57 @@ class _OldEliteState extends State<OldElite> {
             SizedBox(
               height: screenHeight * 0.10,
             ),
-            GestureDetector(
+            InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (ctx) => LandingPage()));
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 50,
+                  vertical: 10,
+                ),
+                child: Container(
+                  width: double.maxFinite,
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                    width: 1,
+                    color: Colors.grey,
+                  )),
+                  child: Center(
+                    child: Text(
+                      "Free Data",
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            InkWell(
               onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (ctx) => PremiumLanding()));
               },
-              child: Container(
-                decoration: BoxDecoration(
-                    border: Border.all(
-                  width: 1,
-                  color: Colors.grey,
-                )),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "Premium Data",
-                    style: TextStyle(
-                      fontSize: 20,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 50,
+                  vertical: 10,
+                ),
+                child: Container(
+                  width: double.maxFinite,
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                    width: 1,
+                    color: Colors.grey,
+                  )),
+                  child: Center(
+                    child: Text(
+                      "Premium Data",
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
                     ),
                   ),
                 ),
@@ -126,6 +172,81 @@ class _OldEliteState extends State<OldElite> {
                           ),
 
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        width: 1, color: Colors.black)),
+                                height: 50,
+                                width: 100,
+                                child: TextField(
+                                  controller: serialController,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 50,
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  int currentValue =
+                                      int.parse(serialController.text);
+                                  setState(() {
+                                    currentValue++;
+                                    serialController.text =
+                                        currentValue.toString();
+                                  });
+                                  // print(currentValue);
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      width: 1,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  height: 50,
+                                  width: 100,
+                                  child: Icon(Icons.add),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  int currentValue =
+                                      int.parse(serialController.text);
+                                  setState(() {
+                                    currentValue--;
+                                    serialController.text =
+                                        currentValue.toString();
+                                  });
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      width: 1,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  height: 50,
+                                  width: 100,
+                                  child: Icon(Icons.remove),
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          SizedBox(
+                            height: 20,
+                          ),
+
+                          //...........................Without date................
+
+                          Row(
                             children: [
                               Expanded(
                                 flex: 1,
@@ -142,107 +263,7 @@ class _OldEliteState extends State<OldElite> {
                               Expanded(
                                 flex: 2,
                                 child: Container(
-                                  height: screenHeight * 0.120,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(25),
-                                    border: Border.all(
-                                      width: 2,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  child: Container(
-                                    width: screenWidth * 0.200,
-                                    child: TextField(
-                                      controller: bigOneController,
-                                      maxLines: 5,
-                                      decoration: InputDecoration(
-                                        contentPadding: EdgeInsets.all(20),
-                                        hintText: "Enter Date",
-                                        border: InputBorder.none,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: screenWidth * 0.020,
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: GestureDetector(
-                                  onTap: () {},
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Color(0xff34495e),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(5.0),
-                                      child: Center(
-                                        child: Text(
-                                          "Add Date",
-                                          style: TextStyle(
-                                            fontSize: screenWidth * 0.012,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: screenWidth * 0.005,
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      // color: Color(0xff34495e),
-                                      ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Center(
-                                      child: Text(
-                                        " ",
-                                        style: TextStyle(
-                                          fontSize: screenWidth * 0.012,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: screenWidth * 0.020,
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: screenHeight * 0.020,
-                          ),
-
-                          //......................................1st.............1st
-
-                          Row(
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: Center(
-                                  child: Text(
-                                    "1",
-                                    style: TextStyle(
-                                      fontSize: screenWidth * 0.020,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: Container(
-                                  height: screenHeight * 0.120,
+                                  height: screenHeight * 0.180,
                                   decoration: BoxDecoration(
                                     border: Border.all(
                                       width: 2,
@@ -252,9 +273,11 @@ class _OldEliteState extends State<OldElite> {
                                   child: Container(
                                     width: screenWidth * 0.200,
                                     child: TextField(
-                                      controller: bigOneController,
-                                      maxLines: 5,
+                                      controller: withoutDateController,
+                                      maxLines: 10,
                                       decoration: InputDecoration(
+                                        fillColor: Colors.red,
+                                        hoverColor: Colors.red,
                                         border: InputBorder.none,
                                       ),
                                     ),
@@ -268,17 +291,34 @@ class _OldEliteState extends State<OldElite> {
                                 flex: 1,
                                 child: GestureDetector(
                                   onTap: () {
-                                    if (bigOneController.text.isNotEmpty) {
-                                      List mylines =
-                                          bigOneController.text.split("\n");
+                                    if (withoutDateController.text.isNotEmpty) {
+                                      List mylines = withoutDateController.text
+                                          .split("\n");
 
                                       finaData_1 = mylines[0];
+
                                       finaData_2 = mylines[1];
+
                                       finaData_3 = mylines[2].substring(
                                           0, mylines[2].indexOf("@") + 1);
+
                                       finaData_4 = mylines[2].substring(
                                           mylines[2].indexOf("@") + 1,
-                                          mylines[2].length);
+                                          mylines[2].indexOf('✅') + 1);
+
+                                      finaData_5 =
+                                          withoutDateController.text.substring(
+                                        withoutDateController.text
+                                                .indexOf('✅') +
+                                            1,
+                                        withoutDateController.text.length,
+                                      );
+
+                                      print(finaData_1);
+                                      print(finaData_2);
+                                      print(finaData_3);
+                                      print(finaData_4);
+                                      print(finaData_5);
 
                                       Fluttertoast.showToast(
                                         msg: "Data Setted",
@@ -340,14 +380,36 @@ class _OldEliteState extends State<OldElite> {
                                         fontSize: 16.0,
                                       );
                                     } else {
-                                      mydata.child("1").set({
+                                      Map<String, String> tipslist = {
                                         "legue": finaData_1,
                                         "team": finaData_2,
                                         "score1": finaData_3,
                                         "score2": finaData_4,
+                                        "date": finaData_5,
+                                      };
+                                      // mydata.push().set(tipslist).whenComplete(
+                                      //     () => Fluttertoast.showToast(
+                                      //           msg: "Success",
+                                      //           toastLength: Toast.LENGTH_LONG,
+                                      //           gravity: ToastGravity.TOP_LEFT,
+                                      //           timeInSecForIosWeb: 1,
+                                      //           backgroundColor: Colors.red,
+                                      //           textColor: Colors.white,
+                                      //           fontSize: 16.0,
+                                      //         ));
+
+                                      mydata
+                                          .child("${serialController.text}")
+                                          // "${"-" + serialController.text}")
+                                          .set({
+                                        "legue": finaData_1,
+                                        "team": finaData_2,
+                                        "score1": finaData_3,
+                                        "score2": finaData_4,
+                                        "date": finaData_5,
                                       });
 
-                                      bigOneController.clear();
+                                      withoutDateController.clear();
                                       finaData_1 = "";
                                       finaData_2 = "";
                                       finaData_3 = "";
@@ -377,6 +439,47 @@ class _OldEliteState extends State<OldElite> {
                               ),
                             ],
                           ),
+
+                          SizedBox(
+                            height: screenHeight * 0.020,
+                          ),
+                          // Wrap(
+                          //   children: [
+                          //     categorySelect("Old Elite", 0xff2464fa,
+                          //         "__Elite Vip Success Tips"),
+                          //     SizedBox(
+                          //       width: 10,
+                          //     ),
+                          //     categorySelect("Old Special", 0xfff29732,
+                          //         "__Special Vip Success Tips"),
+                          //     SizedBox(
+                          //       width: 10,
+                          //     ),
+                          //     categorySelect("Old Single", 0xff2ba8d9,
+                          //         "__Single Vip Success Tips"),
+                          //     SizedBox(
+                          //       width: 10,
+                          //     ),
+                          //     categorySelect("Old Half Full", 0xff2ba8d9,
+                          //         "__HT_FT Vip Success Tips"),
+                          //     SizedBox(
+                          //       width: 10,
+                          //     ),
+                          //     categorySelect("Old 50+", 0xff2ba8d9,
+                          //         "__50+ Odds Vip Success Tips"),
+                          //   ],
+                          // ),
+
+                          SizedBox(
+                            height: 40,
+                          ),
+                          // Text(
+                          //   "Working On : ${category.substring(category.toString().indexOf("__") + 2, category.toString().length)}",
+                          //   style: TextStyle(
+                          //     fontSize: 35,
+                          //     color: Colors.green,
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
@@ -386,86 +489,102 @@ class _OldEliteState extends State<OldElite> {
                   ),
                   Expanded(
                     flex: 1,
-                    child: Container(
-                      color: Colors.grey,
-                      child: FirebaseAnimatedList(
-                        query: mydata,
-                        itemBuilder: (context, snapshot, animation, index) {
-                          int mynumber = index + 1;
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                                left: 5, right: 5, bottom: 5),
-                            child: Container(
-                              color: Colors.white,
-                              child: Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          flex: 1,
-                                          child: Container(
-                                            child: Text(
-                                              snapshot.key.toString(),
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 3,
-                                          child: Container(
-                                            child: Column(
-                                              children: [
-                                                Text(snapshot
-                                                    .child('date')
-                                                    .value
-                                                    .toString()),
-                                                Text(snapshot
-                                                    .child('legue')
-                                                    .value
-                                                    .toString()),
-                                                Text(snapshot
-                                                    .child('team')
-                                                    .value
-                                                    .toString()),
-                                                Text(snapshot
-                                                    .child('score1')
-                                                    .value
-                                                    .toString()),
-                                                Text(snapshot
-                                                    .child('score2')
-                                                    .value
-                                                    .toString()),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 1,
-                                          child: Container(
-                                            child: InkWell(
-                                              onTap: () {
-                                                mydata
-                                                    .child(
-                                                        snapshot.key.toString())
-                                                    .remove();
-                                              },
-                                              child: Icon(
-                                                Icons.delete,
-                                                color: Colors.red,
+                    child: Column(
+                      children: [
+                        Text(
+                          category.substring(
+                              category.toString().indexOf("__") + 2,
+                              category.toString().length),
+                          style: TextStyle(
+                            fontSize: 25,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            color: Colors.grey,
+                            child: FirebaseAnimatedList(
+                              query: mydata,
+                              itemBuilder:
+                                  (context, snapshot, animation, index) {
+                                int mynumber = index + 1;
+                                return Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 5, right: 5, bottom: 5),
+                                  child: Container(
+                                    color: Colors.white,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                flex: 1,
+                                                child: Container(
+                                                  child: Text(
+                                                    snapshot.key.toString(),
+                                                  ),
+                                                ),
                                               ),
-                                            ),
+                                              Expanded(
+                                                flex: 3,
+                                                child: Container(
+                                                  child: Column(
+                                                    children: [
+                                                      Text(snapshot
+                                                          .child('date')
+                                                          .value
+                                                          .toString()),
+                                                      Text(snapshot
+                                                          .child('legue')
+                                                          .value
+                                                          .toString()),
+                                                      Text(snapshot
+                                                          .child('team')
+                                                          .value
+                                                          .toString()),
+                                                      Text(snapshot
+                                                          .child('score1')
+                                                          .value
+                                                          .toString()),
+                                                      Text(snapshot
+                                                          .child('score2')
+                                                          .value
+                                                          .toString()),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 1,
+                                                child: Container(
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      mydata
+                                                          .child(snapshot.key
+                                                              .toString())
+                                                          .remove();
+                                                    },
+                                                    child: Icon(
+                                                      Icons.delete,
+                                                      color: Colors.red,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ],
-                                ),
-                              ),
+                                  ),
+                                );
+                              },
                             ),
-                          );
-                        },
-                      ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -473,6 +592,28 @@ class _OldEliteState extends State<OldElite> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget categorySelect(String label, int mcolor, String tipsName) {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          category = tipsName;
+          print(tipsName);
+        });
+      },
+      child: Chip(
+        backgroundColor: category == label ? Colors.black : Color(mcolor),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        label: Text(
+          label,
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        labelPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       ),
     );
   }
